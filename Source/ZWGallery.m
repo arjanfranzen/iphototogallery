@@ -211,7 +211,7 @@
 - (void)createAlbumWithName:(NSString *)name title:(NSString *)title summary:(NSString *)summary parent:(ZWGallery *)parent
 {
     if (parent == nil) 
-        (id)parent = (id)[NSNull null];
+        parent = (id)[NSNull null];
         
     NSDictionary *threadDispatchInfo = [NSDictionary dictionaryWithObjectsAndKeys:
         name, @"AlbumName",
@@ -237,7 +237,7 @@
     NSString *response = [[[NSString alloc] initWithData:responseData encoding:[self sniffedEncoding]] autorelease];
     
     if (response == nil) {
-        NSLog(@"Could not convert response data into a string with encoding: %i", [self sniffedEncoding]);
+        NSLog(@"Could not convert response data into a string with encoding: %lu", (unsigned long)[self sniffedEncoding]);
         return nil;
     }
     

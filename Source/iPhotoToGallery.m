@@ -39,7 +39,7 @@
 
 #include <Security/Security.h>
 #include <CoreFoundation/CoreFoundation.h>
-#include <Growl/Growl.h>
+//#include <Growl/Growl.h>
 
 @interface iPhotoToGallery (PrivateStuff)
 
@@ -54,12 +54,26 @@ static int loggingIn;
 
 #pragma mark -
 
+//event handler when event occurs
+-(void)eventHandler: (NSNotification *) notification
+{
+    NSLog(@"event triggered");
+}
+
 - (id)initWithExportImageObj:(id)exportMgr {
     [NSThread prepareForInterThreadMessages];
     
     exportManager = exportMgr; // weak reference - we don't expect our ExportManager to disappear on us
 
-    [GrowlApplicationBridge setGrowlDelegate:self];
+//    [GrowlApplicationBridge setGrowlDelegate:self];
+    //register to listen for event
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(eventHandler:)
+     name:@"eventType"
+     object:nil ];
+    
+   
     
     preferences = [[NSMutableDictionary alloc] init];
     NSDictionary *userDefaultsPreferences = [[NSUserDefaults standardUserDefaults] persistentDomainForName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
@@ -319,8 +333,8 @@ static int loggingIn;
     else if ([exportManager respondsToSelector:@selector(albumNameAtIndex:)]) {
         // iPhoto 7
         if ([exportManager albumCount] > 0) {
-            currAlbum = [exportManager albumNameAtIndex:0];
-            currComments = [exportManager albumCommentsAtIndex:0];
+            currAlbum = (NSString*)[exportManager albumNameAtIndex:0];
+            currComments = (NSString*)[exportManager albumCommentsAtIndex:0];
         }
     }
     
@@ -1043,27 +1057,35 @@ static int loggingIn;
                 }
                     
                 if (status != ZW_GALLERY_OPERATION_DID_CANCEL) {
-                    [GrowlApplicationBridge notifyWithTitle:@"Export Failed"
-                                                description:[NSString stringWithFormat:@"Export to gallery failed after %i photos were uploaded",
-                                                    imageNum]
-                                           notificationName:@"Export to Gallery Failed"
-                                                   iconData:[item data]
-                                                   priority:0
-                                                   isSticky:NO
-                                               clickContext:NULL];
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:[NSString stringWithFormat:@"Export to gallery failed after %i photos were uploaded", imageNum]
+                     object:nil ];
+                    
+//                    [GrowlApplicationBridge notifyWithTitle:@"Export Failed"
+//                                                description:[NSString stringWithFormat:@"Export to gallery failed after %i photos were uploaded",
+//                                                    imageNum]
+//                                           notificationName:@"Export to Gallery Failed"
+//                                                   iconData:[item data]
+//                                                   priority:0
+//                                                   isSticky:NO
+//                                               clickContext:NULL];
                 }
                 
                 cancel = YES;
             }
             else {
-                [GrowlApplicationBridge notifyWithTitle:@"Photo Uploaded"
-                                            description:[NSString stringWithFormat:@"Photo %@ uploaded to Gallery",
-                                                [item filename]]
-                                       notificationName:@"Photo Uploaded to Gallery"
-                                               iconData:[item data]
-                                               priority:0
-                                               isSticky:NO
-                                           clickContext:NULL];
+                [[NSNotificationCenter defaultCenter]
+                 postNotificationName:[NSString stringWithFormat:@"Photo %@ uploaded to Gallery", [item filename]]
+                 object:nil ];
+                
+//                [GrowlApplicationBridge notifyWithTitle:@"Photo Uploaded"
+//                                            description:[NSString stringWithFormat:@"Photo %@ uploaded to Gallery",
+//                                                [item filename]]
+//                                       notificationName:@"Photo Uploaded to Gallery"
+//                                               iconData:[item data]
+//                                               priority:0
+//                                               isSticky:NO
+//                                           clickContext:NULL];
             }
             
         } [innerPool release];
@@ -1091,14 +1113,18 @@ static int loggingIn;
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:albumURLString]];
         }
 
-        [GrowlApplicationBridge notifyWithTitle:@"All Photos Uploaded"
-                                    description:[NSString stringWithFormat:@"%i photos were uploaded to Gallery",
-                                        [exportManager imageCount]]
-                               notificationName:@"All Photos Uploaded to Gallery"
-                                       iconData:nil
-                                       priority:0
-                                       isSticky:NO
-                                   clickContext:NULL];
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:[NSString stringWithFormat:@"%llu photos were uploaded to Gallery",  [exportManager imageCount]]
+         object:nil ];
+        
+//        [GrowlApplicationBridge notifyWithTitle:@"All Photos Uploaded"
+//                                    description:[NSString stringWithFormat:@"%llu photos were uploaded to Gallery",
+//                                        [exportManager imageCount]]
+//                               notificationName:@"All Photos Uploaded to Gallery"
+//                                       iconData:nil
+//                                       priority:0
+//                                       isSticky:NO
+//                                   clickContext:NULL];
         
         [exportManager cancelExportBeforeBeginning];
     }
@@ -1255,34 +1281,34 @@ static int loggingIn;
     return [gallery valueForKey:[aTableColumn identifier]];
 }
 
-#pragma mark -
-#pragma mark GrowlDelegate
-
-- (NSDictionary *)registrationDictionaryForGrowl
-{
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-        [NSArray arrayWithObjects:
-            @"Photo Uploaded to Gallery",
-            @"All Photos Uploaded to Gallery",
-            @"Export to Gallery Failed",
-            nil], GROWL_NOTIFICATIONS_ALL,
-        [NSArray arrayWithObjects:
-            @"All Photos Uploaded to Gallery",
-            @"Export to Gallery Failed",
-            nil], GROWL_NOTIFICATIONS_DEFAULT,
-        nil];
-}
-
-- (NSString *)applicationNameForGrowl
-{
-    return @"iPhotoToGallery";
-}
-
-- (NSData *)applicationIconDataForGrowl
-{
-    
-    NSString *iconPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"iPhotoPluginIcon" ofType:@"tif"];
-    return [NSData dataWithContentsOfFile:iconPath];
-}
+//#pragma mark -
+//#pragma mark GrowlDelegate
+//
+//- (NSDictionary *)registrationDictionaryForGrowl
+//{
+//    return [NSDictionary dictionaryWithObjectsAndKeys:
+//        [NSArray arrayWithObjects:
+//            @"Photo Uploaded to Gallery",
+//            @"All Photos Uploaded to Gallery",
+//            @"Export to Gallery Failed",
+//            nil], GROWL_NOTIFICATIONS_ALL,
+//        [NSArray arrayWithObjects:
+//            @"All Photos Uploaded to Gallery",
+//            @"Export to Gallery Failed",
+//            nil], GROWL_NOTIFICATIONS_DEFAULT,
+//        nil];
+//}
+//
+//- (NSString *)applicationNameForGrowl
+//{
+//    return @"iPhotoToGallery";
+//}
+//
+//- (NSData *)applicationIconDataForGrowl
+//{
+//    
+//    NSString *iconPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"iPhotoPluginIcon" ofType:@"tif"];
+//    return [NSData dataWithContentsOfFile:iconPath];
+//}
 
 @end

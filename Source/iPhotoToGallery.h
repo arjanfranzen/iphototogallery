@@ -33,31 +33,31 @@
 
 @class ZWGallery, ZWGalleryAlbum, ZWGalleryItem;
 
-// This protocol description was class-dump'd out of iPhoto, and we must implement it.
-@protocol ExportPluginProtocol
-- description;
-- name;
-- (void)cancelExport;
-- (void)unlockProgress;
-- (void)lockProgress;
-- (void *)progress;
-- (void)performExport:fp16;
-- (void)startExport:fp16;
-- (void)clickExport;
-- (char)validateUserCreatedPath:fp16;
-- (char)treatSingleSelectionDifferently;
-- defaultDirectory;
-- defaultFileName;
-- getDestinationPath;
-- (char)wantsDestinationPrompt;
-- requiredFileType;
-- (void)viewWillBeDeactivated;
-- (void)viewWillBeActivated;
-- lastView;
-- firstView;
-- settingsView;
-- initWithExportImageObj:fp16;
-@end
+//// This protocol description was class-dump'd out of iPhoto, and we must implement it.
+//@protocol ExportPluginProtocol
+//- description;
+//- name;
+//- (void)cancelExport;
+//- (void)unlockProgress;
+//- (void)lockProgress;
+//- (void *)progress;
+//- (void)performExport:fp16;
+//- (void)startExport:fp16;
+//- (void)clickExport;
+//- (char)validateUserCreatedPath:fp16;
+//- (char)treatSingleSelectionDifferently;
+//- defaultDirectory;
+//- defaultFileName;
+//- getDestinationPath;
+//- (char)wantsDestinationPrompt;
+//- requiredFileType;
+//- (void)viewWillBeDeactivated;
+//- (void)viewWillBeActivated;
+//- lastView;
+//- firstView;
+//- settingsView;
+//- initWithExportImageObj:fp16;
+//@end
 
 // I had to guess at exactly what this struct looked like. I think I got it right, 
 // but we're not using the supplied progress sheet anymore so it doesn't matter.
