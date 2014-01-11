@@ -40,12 +40,12 @@ struct InterThreadMessage
 {
     InterThreadMessageType type;
     union {
-        NSNotification *notification;
+        __unsafe_unretained NSNotification *notification;
         struct {
             SEL selector;
-            id receiver;
-            id arg1;
-            id arg2;
+            __unsafe_unretained id receiver;
+            __unsafe_unretained id arg1;
+            __unsafe_unretained id arg2;
         } sel;
     } data;
 };
@@ -74,17 +74,15 @@ createMessagePortForThread (NSThread *thread, NSRunLoop *runLoop)
 
     pthread_mutex_lock(&pGate);
 
-    port = NSMapGet(pThreadMessagePorts, thread);
+    port = (__bridge NSPort *)(NSMapGet(pThreadMessagePorts, (__bridge const void *)(thread)));
     if (nil == port) {
         port = [[NSPort allocWithZone:NULL] init];
         [port setDelegate:[InterThreadManager class]];
         [port scheduleInRunLoop:runLoop forMode:NSModalPanelRunLoopMode];  // ZWw: I need this for iPhotoToGallery usage
         [port scheduleInRunLoop:runLoop forMode:NSDefaultRunLoopMode];
-        NSMapInsertKnownAbsent(pThreadMessagePorts, thread, port);
+        NSMapInsertKnownAbsent(pThreadMessagePorts, (__bridge const void *)(thread), (__bridge const void *)(port));
 
-        /* Transfer ownership of this port to the map table. */
-        [port release];
-    }
+        }
 
     pthread_mutex_unlock(&pGate);
 }
@@ -98,7 +96,7 @@ messagePortForThread (NSThread *thread)
     assert(NULL != pThreadMessagePorts);
 
     pthread_mutex_lock(&pGate);
-    port = NSMapGet(pThreadMessagePorts, thread);
+    port = (__bridge NSPort *)(NSMapGet(pThreadMessagePorts, (__bridge const void *)(thread)));
     pthread_mutex_unlock(&pGate);
 
     if (nil == port) {
@@ -121,11 +119,11 @@ removeMessagePortForThread (NSThread *thread, NSRunLoop *runLoop)
 
     pthread_mutex_lock(&pGate);
     
-    port = (NSPort *) NSMapGet(pThreadMessagePorts, thread);
+    port = (__bridge NSPort *) NSMapGet(pThreadMessagePorts, (__bridge const void *)(thread));
     if (nil != port) {
         [port removeFromRunLoop:runLoop forMode:NSModalPanelRunLoopMode];    // ZWw: I added it, so I need to remove it
         [port removeFromRunLoop:runLoop forMode:NSDefaultRunLoopMode];
-        NSMapRemove(pThreadMessagePorts, thread);
+        NSMapRemove(pThreadMessagePorts, (__bridge const void *)(thread));
     }
 
     pthread_mutex_unlock(&pGate);
@@ -205,28 +203,25 @@ removeMessagePortForThread (NSThread *thread, NSRunLoop *runLoop)
         case kITMPostNotification:
             [[NSNotificationCenter defaultCenter]
                 postNotification:msg->data.notification];
-            [msg->data.notification release];
+            
             break;
 
         case kITMPerformSelector0Args:
             [msg->data.sel.receiver performSelector:msg->data.sel.selector];
-            [msg->data.sel.receiver release];
             break;
 
         case kITMPerformSelector1Args:
             [msg->data.sel.receiver performSelector:msg->data.sel.selector
                                     withObject:msg->data.sel.arg1];
-            [msg->data.sel.receiver release];
-            [msg->data.sel.arg1 release];
+           
+            
             break;
 
         case kITMPerformSelector2Args:
             [msg->data.sel.receiver performSelector:msg->data.sel.selector
                                     withObject:msg->data.sel.arg1
                                     withObject:msg->data.sel.arg2];
-            [msg->data.sel.receiver release];
-            [msg->data.sel.arg1 release];
-            [msg->data.sel.arg2 release];
+            
             break;
 
         default:
@@ -263,10 +258,7 @@ postMessage (InterThreadMessage *message, NSThread *thread, NSDate *limitDate)
 
     if (nil == limitDate) { limitDate = [NSDate distantFuture]; }
     retval = [portMessage sendBeforeDate:limitDate];
-    [portMessage release];
-    [components release];
-    [data release];
-
+   
     if (!retval) {
         [NSException raise:NSPortTimeoutException
                      format:@"Can't send message to thread %@: timeout "
@@ -287,9 +279,9 @@ performSelector (InterThreadMessageType type, SEL selector, id receiver,
         bzero(msg, sizeof(struct InterThreadMessage));
         msg->type = type;
         msg->data.sel.selector = selector;
-        msg->data.sel.receiver = [receiver retain];
-        msg->data.sel.arg1 = [object1 retain];
-        msg->data.sel.arg2 = [object2 retain];
+        msg->data.sel.receiver = receiver ;
+        msg->data.sel.arg1 = object1 ;
+        msg->data.sel.arg2 = object2 ;
 
         postMessage(msg, thread, limitDate);
     }
@@ -306,7 +298,7 @@ postNotification (NSNotification *notification, NSThread *thread,
     msg = (InterThreadMessage *) malloc(sizeof(struct InterThreadMessage));
     bzero(msg, sizeof(struct InterThreadMessage));
     msg->type = kITMPostNotification;
-    msg->data.notification = [notification retain];
+    msg->data.notification = notification ;
 
     postMessage(msg, thread, limitDate);
 }

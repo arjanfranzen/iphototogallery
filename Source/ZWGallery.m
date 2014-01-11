@@ -56,9 +56,9 @@
 }
 
 - (id)initWithURL:(NSURL*)newUrl username:(NSString*)newUsername {
-    url = [newUrl retain];
+    url = newUrl;
     fullURL = [[NSURL alloc] initWithString:[[url absoluteString] stringByAppendingString:@"gallery_remote2.php"]];
-    username = [newUsername retain];
+    username = newUsername;
     delegate = self;
     loggedIn = FALSE;
     majorVersion = 0;
@@ -69,7 +69,7 @@
 }
 
 - (id)initWithDictionary:(NSDictionary*)dictionary {
-    [self initWithURL:[NSURL URLWithString:[dictionary objectForKey:@"url"]] 
+    self = [self initWithURL:[NSURL URLWithString:[dictionary objectForKey:@"url"]]
              username:[dictionary objectForKey:@"username"]];
     
     NSNumber *typeNumber = [dictionary objectForKey:@"type"];
@@ -80,23 +80,23 @@
 }
 
 + (ZWGallery*)galleryWithURL:(NSURL*)newUrl username:(NSString*)newUsername {
-    return [[[ZWGallery alloc] initWithURL:newUrl username:newUsername] autorelease];
+    return [[ZWGallery alloc] initWithURL:newUrl username:newUsername];
 }
 
 + (ZWGallery*)galleryWithDictionary:(NSDictionary*)dictionary {
-    return [[[ZWGallery alloc] initWithDictionary:dictionary] autorelease];
+    return [[ZWGallery alloc] initWithDictionary:dictionary];
 }
-
-- (void)dealloc
-{
-    [url release];
-    [username release];
-    [password release];
-    [albums release];
-    [lastCreatedAlbumName release];
-    
-    [super dealloc];
-}
+//
+//- (void)dealloc
+//{
+//    [url release];
+//    [username release];
+//    [password release];
+//    [albums release];
+//    [lastCreatedAlbumName release];
+//    
+//    [super dealloc];
+//}
 
 #pragma mark NSComparisonMethods
 
@@ -121,8 +121,8 @@
 }
 
 - (void)setPassword:(NSString*)newPassword {
-    [newPassword retain];
-    [password release];
+//    [newPassword retain];
+//    [password release];
     password = newPassword;
 }
 
@@ -234,7 +234,7 @@
 #pragma mark Helpers
 
 - (NSDictionary*)parseResponseData:(NSData*)responseData {
-    NSString *response = [[[NSString alloc] initWithData:responseData encoding:[self sniffedEncoding]] autorelease];
+    NSString *response = [[NSString alloc] initWithData:responseData encoding:[self sniffedEncoding]];
     
     if (response == nil) {
         NSLog(@"Could not convert response data into a string with encoding: %lu", (unsigned long)[self sniffedEncoding]);
@@ -284,7 +284,7 @@
 #pragma mark Threads
 
 - (void)loginThread:(NSDictionary *)threadDispatchInfo {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    //NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     [NSThread prepareForInterThreadMessages];
 
@@ -302,7 +302,7 @@
                        withObject:[NSNumber numberWithInt:status] 
                          inThread:callingThread];
     
-    [pool release];
+    //[pool release];
 }
     
 - (ZWGalleryRemoteStatusCode)doLogin
@@ -465,7 +465,7 @@
 }
 
 - (void)getAlbumsThread:(NSDictionary *)threadDispatchInfo {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    //NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     [NSThread prepareForInterThreadMessages];
 
@@ -483,7 +483,7 @@
                        withObject:[NSNumber numberWithInt:status] 
                          inThread:callingThread];
 
-    [pool release];
+    //[pool release];
 }
 
 - (ZWGalleryRemoteStatusCode)doGetAlbums
@@ -521,7 +521,7 @@
     
     ZWGalleryRemoteStatusCode status = (ZWGalleryRemoteStatusCode)[[galleryResponse objectForKey:@"statusCode"] intValue];
         
-    [albums release];
+    //[albums release];
     albums = nil;
     
     if (status != GR_STAT_SUCCESS)
@@ -595,7 +595,7 @@
 }
 
 - (void)createAlbumThread:(NSDictionary *)threadDispatchInfo {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    //NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     [NSThread prepareForInterThreadMessages];
     
@@ -616,7 +616,7 @@
                        withObject:[NSNumber numberWithInt:status] 
                          inThread:callingThread];
     
-    [pool release];
+    //[pool release];
 }
 
 - (ZWGalleryRemoteStatusCode)doCreateAlbumWithName:(NSString *)name title:(NSString *)title summary:(NSString *)summary parent:(ZWGalleryAlbum *)parent
@@ -664,7 +664,7 @@
     ZWGalleryRemoteStatusCode status = (ZWGalleryRemoteStatusCode)[[galleryResponse objectForKey:@"statusCode"] intValue];
     
     if (status == GR_STAT_SUCCESS) {
-        [lastCreatedAlbumName release];
+        //[lastCreatedAlbumName release];
         lastCreatedAlbumName = [[galleryResponse objectForKey:@"album_name"] copy];
     }
     

@@ -46,13 +46,6 @@ static NSBitmapImageRep *BitmapImageRepFromNSImage(NSImage *nsImage);
     return self;
 }
 
-- (void)dealloc
-{
-    [image release];
-    [oldImage release];
-    [super dealloc];
-}
-
 - (void)awakeFromNib {
     // Preload shading bitmap to use in transitions (borrowed from the "Fun House" Core Image example).
     /*
@@ -69,8 +62,6 @@ static NSBitmapImageRep *BitmapImageRepFromNSImage(NSImage *nsImage);
     BOOL imageWasBlank = imageIsBlank;
     imageIsBlank = (newImage == nil);
     
-    // save the previous image
-    [oldImage autorelease];
     oldImage = image;
     
     // create a new matted image with the image we were given
@@ -144,7 +135,7 @@ static NSBitmapImageRep *BitmapImageRepFromNSImage(NSImage *nsImage);
         */
         
         Class CIFilterClass = NSClassFromString(@"CIFilter");
-        transitionFilter = [[CIFilterClass filterWithName:@"CICopyMachineTransition"] retain];
+        transitionFilter = [CIFilterClass filterWithName:@"CICopyMachineTransition"] ;
         [transitionFilter setDefaults];
         Class CIVectorClass = NSClassFromString(@"CIVector");
         [transitionFilter setValue:[CIVectorClass vectorWithX:rect.origin.x Y:rect.origin.y Z:rect.size.width W:rect.size.height] forKey:@"inputExtent"];
@@ -152,9 +143,6 @@ static NSBitmapImageRep *BitmapImageRepFromNSImage(NSImage *nsImage);
         [transitionFilter setValue:initialCIImage forKey:@"inputImage"];
         [transitionFilter setValue:finalCIImage forKey:@"inputTargetImage"];
         
-        [initialCIImage release];
-        [finalCIImage release];
-
         animation = [[MyViewAnimation alloc] initWithDuration:0.7 animationCurve:NSAnimationEaseInOut];
         [animation setDelegate:self];
         [animation setAnimationBlockingMode:NSAnimationNonblocking];
@@ -164,8 +152,7 @@ static NSBitmapImageRep *BitmapImageRepFromNSImage(NSImage *nsImage);
     
     [self setNeedsDisplay:YES];
     
-    [actualOldImage autorelease];
-    actualOldImage = [newImage retain];
+    actualOldImage = newImage ;
 }
 
 - (NSImage *)image
@@ -174,9 +161,7 @@ static NSBitmapImageRep *BitmapImageRepFromNSImage(NSImage *nsImage);
 }
 
 - (void)animationDidEnd:(NSAnimation*)theAnimation {
-    [animation autorelease];
     animation = nil;
-    [transitionFilter release];
     transitionFilter = nil;
 }
 
@@ -209,7 +194,8 @@ static NSBitmapImageRep *BitmapImageRepFromNSImage(NSImage *nsImage);
     [super setCurrentProgress:progress];
     
     // Now ask the AnimatingTabView (which set itself as our delegate) to display.  Sending a -display message differs from sending -setNeedsDisplay: or -setNeedsDisplayInRect: in that it demands an immediate, syncrhonous redraw of the view.  Most of the time, it's preferrable to send a -setNeedsDisplay... message, which gives AppKit the opportunity to coalesce potentially numerous display requests and update the window efficiently when it's convenient.  But for a syncrhonously executing animation, it's appropriate to use -display.
-    [[self delegate] display];
+    //ToDo:
+    //[[self delegate] display];
 }
 
 @end
@@ -230,5 +216,5 @@ static NSBitmapImageRep *BitmapImageRepFromNSImage(NSImage *nsImage) {
     NSBitmapImageRep *bitmapImageRep = [[NSBitmapImageRep alloc] initWithFocusedViewRect:NSMakeRect(0, 0, size.width, size.height)];
     [nsImage unlockFocus];
     
-    return [bitmapImageRep autorelease];
+    return bitmapImageRep ;
 }

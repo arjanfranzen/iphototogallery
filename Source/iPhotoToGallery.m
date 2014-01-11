@@ -96,11 +96,6 @@ static int loggingIn;
     return self;
 }
 
-- (void)dealloc {
-    [preferences release];
-    [galleries release];
-    [super dealloc];
-}
 
 #pragma mark -
 #pragma mark NSNibAwaking
@@ -215,15 +210,15 @@ static int loggingIn;
 
 }
 
-- (char)validateUserCreatedPath:fp16 {
+- (BOOL)validateUserCreatedPath:fp16 {
     return NO;
 }
 
-- (char)treatSingleSelectionDifferently {
+- (BOOL)treatSingleSelectionDifferently {
     return NO;
 }
 
-- (char)handlesMovieFiles {
+- (BOOL)handlesMovieFiles {
     return NO;
 }
 
@@ -239,7 +234,7 @@ static int loggingIn;
     return [NSHomeDirectory() stringByAppendingPathComponent:@"Pictures"];
 }
 
-- (char)wantsDestinationPrompt {
+- (BOOL)wantsDestinationPrompt {
     return NO;
 }
 
@@ -320,22 +315,19 @@ static int loggingIn;
     if (![albumSettingsNameField formatter]) {
         ZWAlbumNameFormatter *nameFormatter = [[ZWAlbumNameFormatter alloc] init];
         [albumSettingsNameField setFormatter:nameFormatter];
-        [nameFormatter release];
+//        [nameFormatter release];
     }
     
     // Get defaults for the Title and Description fields (thx Nathaniel Gray)
     NSString *currAlbum, *currComments = nil;
-    if ([exportManager respondsToSelector:@selector(albumName)]) {
-        currAlbum = [exportManager albumName];
-        if ([exportManager respondsToSelector:@selector(albumComments)])
-            currComments = [exportManager albumComments];
-    }
-    else if ([exportManager respondsToSelector:@selector(albumNameAtIndex:)]) {
+    if ([exportManager respondsToSelector:@selector(albumNameAtIndex:)]) {
         // iPhoto 7
         if ([exportManager albumCount] > 0) {
             currAlbum = (NSString*)[exportManager albumNameAtIndex:0];
             currComments = (NSString*)[exportManager albumCommentsAtIndex:0];
         }
+    } else {
+        NSLog(@"Unable to retrieve Album name and comments");
     }
     
     // Make these empty strings if they're nil
@@ -682,8 +674,8 @@ static int loggingIn;
             [self setLoggedInOut];
         }
         currentGallery = [[mainGalleryPopup selectedItem] representedObject];
-        [lastGallerySelected release];
-        lastGallerySelected = [[mainGalleryPopup titleOfSelectedItem] retain];
+        //[lastGallerySelected release];
+        lastGallerySelected = [mainGalleryPopup titleOfSelectedItem];
         // attempt to login
         if (![currentGallery loggedIn] && currentGallery) {
             [currentGallery setPassword:[self lookupPasswordForCurrentGallery]];
@@ -768,7 +760,7 @@ static int loggingIn;
 }
 
 - (void)savePreferences {
-    NSMutableArray *galleriesPrefs = [[NSMutableArray array] retain];
+    NSMutableArray *galleriesPrefs = [NSMutableArray array];
     
     NSEnumerator *enumerator = [galleries objectEnumerator];
     id gallery;
@@ -779,7 +771,7 @@ static int loggingIn;
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle bundleForClass: [self class]] bundleIdentifier]];
     [[NSUserDefaults standardUserDefaults] setPersistentDomain:preferences forName:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
     
-    [galleriesPrefs release];
+   
 }
 
 // This is a little helper method that populates those album menus. You hand it an album and it recursively adds it
@@ -789,7 +781,7 @@ static int loggingIn;
 {
 	int count = 0;
 
-	NSMenuItem *albumMenuItem = [[[NSMenuItem alloc] initWithTitle:[album title] action:nil keyEquivalent:@""] autorelease];
+	NSMenuItem *albumMenuItem = [[NSMenuItem alloc] initWithTitle:[album title] action:nil keyEquivalent:@""];
     [albumMenuItem setIndentationLevel:level];
 	[albumMenuItem setRepresentedObject:album];
 	if (!addSub && ![album canAddItem]) 
@@ -881,25 +873,25 @@ static int loggingIn;
     }
 }
 
-// This is a little method to make iPhoto 5 compatibility a little easier. (iPhoto 5 removed the imageDictionaryAtIndex: method)
-- (NSDictionary *)exportManagerImageDictionaryAtIndex:(int)index
-{
-    if ([exportManager respondsToSelector:@selector(imageDictionaryAtIndex:)])
-        return [exportManager imageDictionaryAtIndex:index];
-    
-    NSMutableDictionary *imageDict = [NSMutableDictionary dictionary];
-    
-    // iPhoto7 changes this to imageTitleAtIndex (thx Jamie Neufeld)
-    if ([exportManager respondsToSelector:@selector(imageTitleAtIndex:)])
-        [imageDict setObject:[exportManager imageTitleAtIndex:index] forKey:@"Caption"];
-    else if ([exportManager respondsToSelector:@selector(imageCaptionAtIndex:)])
-        [imageDict setObject:[exportManager imageCaptionAtIndex:index] forKey:@"Caption"];
-    
-    if ([exportManager respondsToSelector:@selector(imageCommentsAtIndex:)])
-        [imageDict setObject:[exportManager imageCommentsAtIndex:index] forKey:@"Annotation"];
-    
-    return imageDict;
-}
+//// This is a little method to make iPhoto 5 compatibility a little easier. (iPhoto 5 removed the imageDictionaryAtIndex: method)
+//- (NSDictionary *)exportManagerImageDictionaryAtIndex:(int)index
+//{
+//    if ([exportManager respondsToSelector:@selector(imageDictionaryAtIndex:)])
+//        return [exportManager imageDictionaryAtIndex:index];
+//    
+//    NSMutableDictionary *imageDict = [NSMutableDictionary dictionary];
+//    
+//    // iPhoto7 changes this to imageTitleAtIndex (thx Jamie Neufeld)
+//    if ([exportManager respondsToSelector:@selector(imageTitleAtIndex:)])
+//        [imageDict setObject:[exportManager imageTitleAtIndex:index] forKey:@"Caption"];
+//    else if ([exportManager respondsToSelector:@selector(imageCaptionAtIndex:)])
+//        [imageDict setObject:[exportManager imageCaptionAtIndex:index] forKey:@"Caption"];
+//    
+//    if ([exportManager respondsToSelector:@selector(imageCommentsAtIndex:)])
+//        [imageDict setObject:[exportManager imageCommentsAtIndex:index] forKey:@"Annotation"];
+//    
+//    return imageDict;
+//}
 
 - (NSString*)lookupPasswordForCurrentGallery {
     if (currentGallery == nil) 
@@ -933,7 +925,7 @@ static int loggingIn;
         return nil;
     }
     
-    NSString *password = [NSString stringWithCString:passwordData length:passwordLength];
+    NSString *password = [[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSASCIIStringEncoding];
     if (passwordLength) 
         SecKeychainItemFreeContent(NULL, passwordData);
 
@@ -961,7 +953,6 @@ static int loggingIn;
 
 - (void)addItemsThread:(id)target
 {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
     [NSThread prepareForInterThreadMessages];
     
@@ -976,10 +967,10 @@ static int loggingIn;
     int imageNum;
     BOOL cancel = NO;
     for (imageNum = 0; imageNum < (int)[exportManager imageCount] && !cancel; imageNum++) {
-        // Create our own pool so we don't use up tons of memory with autoreleased image data
-        NSAutoreleasePool *innerPool = [[NSAutoreleasePool alloc] init]; {
         
             NSString *imagePath = [exportManager imagePathAtIndex:imageNum];
+            NSLog(@"Processing file at location %@", imagePath);
+            
             NSDictionary *imageDict = [self exportManagerImageDictionaryAtIndex:imageNum];
             
             ZWGalleryItem *item = [ZWGalleryItem itemWithAlbum:album];
@@ -1003,10 +994,10 @@ static int loggingIn;
                 if ([imageDict objectForKey:@"Annotation"]) 
                     [item setDescription:[imageDict objectForKey:@"Annotation"]];
             }
-            
+        
             // finally, add the image data
             NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
-            NSImage *image = [[[NSImage alloc] initWithData:imageData] autorelease];
+            NSImage *image = [[NSImage alloc] initWithData:imageData];
 
             currentImageIndex = imageNum;
             
@@ -1077,6 +1068,7 @@ static int loggingIn;
                 [[NSNotificationCenter defaultCenter]
                  postNotificationName:[NSString stringWithFormat:@"Photo %@ uploaded to Gallery", [item filename]]
                  object:nil ];
+                NSLog(@"Photo %@ uploaded to Gallery", [item filename]);
                 
 //                [GrowlApplicationBridge notifyWithTitle:@"Photo Uploaded"
 //                                            description:[NSString stringWithFormat:@"Photo %@ uploaded to Gallery",
@@ -1088,12 +1080,12 @@ static int loggingIn;
 //                                           clickContext:NULL];
             }
             
-        } [innerPool release];
-    }
-    
+        }
+
     [NSApp endSheet:progressPanel];
-    
+
     if (status == GR_STAT_SUCCESS) {
+        
         if ([mainOpenBrowserSwitch state] == NSOnState) {
             NSMutableString *albumURLString = nil;
             
@@ -1116,6 +1108,7 @@ static int loggingIn;
         [[NSNotificationCenter defaultCenter]
          postNotificationName:[NSString stringWithFormat:@"%llu photos were uploaded to Gallery",  [exportManager imageCount]]
          object:nil ];
+        NSLog(@"%llu photos were uploaded to Gallery",  [exportManager imageCount]);
         
 //        [GrowlApplicationBridge notifyWithTitle:@"All Photos Uploaded"
 //                                    description:[NSString stringWithFormat:@"%llu photos were uploaded to Gallery",
@@ -1130,8 +1123,7 @@ static int loggingIn;
     }
         
     currentAlbum = nil;
-        
-    [pool release];
+    
 }
 
 #pragma mark -
@@ -1200,7 +1192,7 @@ static int loggingIn;
         
         int i;
         for (i = 0; i < [mainAddToAlbumPopup numberOfItems]; i++) {
-            id<NSMenuItem> item = [mainAddToAlbumPopup itemAtIndex:i];
+            NSMenuItem *item = [mainAddToAlbumPopup itemAtIndex:i];
             if ([[item representedObject] respondsToSelector:@selector(name)] &&
                 [[[item representedObject] name] isEqual:newAlbumName]) {
                 [mainAddToAlbumPopup selectItemAtIndex:i];
@@ -1310,5 +1302,22 @@ static int loggingIn;
 //    NSString *iconPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"iPhotoPluginIcon" ofType:@"tif"];
 //    return [NSData dataWithContentsOfFile:iconPath];
 //}
+
+// This is a little method to make iPhoto 5 compatibility a little easier. (iPhoto 5 removed the imageDictionaryAtIndex: method)
+- (NSDictionary *)exportManagerImageDictionaryAtIndex:(int)index
+{
+    NSMutableDictionary *imageDict = [NSMutableDictionary dictionary];
+    
+    // iPhoto7 changes this to imageTitleAtIndex (thx Jamie Neufeld)
+    if ([exportManager respondsToSelector:@selector(imageTitleAtIndex:)])
+        [imageDict setObject:[exportManager imageTitleAtIndex:index] forKey:@"Caption"];
+    else if ([exportManager respondsToSelector:@selector(imageCommentsAtIndex:)])
+        [imageDict setObject:[exportManager imageCommentsAtIndex:index] forKey:@"Caption"];
+    
+    if ([exportManager respondsToSelector:@selector(imageCommentsAtIndex:)])
+        [imageDict setObject:[exportManager imageCommentsAtIndex:index] forKey:@"Annotation"];
+    
+    return imageDict;
+}
 
 @end

@@ -30,7 +30,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@protocol ExportPluginBoxProtocol
+@protocol ExportPluginBoxProtocol <NSObject>
 - (char)performKeyEquivalent:fp16;
 @end
 

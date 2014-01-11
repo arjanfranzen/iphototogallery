@@ -37,7 +37,7 @@
 
 + (ZWURLConnection *)connectionWithRequest:(NSURLRequest *)request
 {
-    return [[[self alloc] initWithRequest:request] autorelease];
+    return [[self alloc] initWithRequest:request];
 }
 
 - (id)initWithRequest:(NSURLRequest *)request
@@ -47,14 +47,6 @@
     }
     
     return self;
-}
-
-- (void)dealloc
-{
-    [data release];
-    [response release];
-    [error release];
-    [super dealloc];
 }
 
 #pragma mark NSURLConnection
@@ -98,7 +90,7 @@
 
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)aResponse
 {
-    response = [aResponse retain];
+    response = aResponse;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)someData
@@ -112,7 +104,7 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)anError
 {
     running = NO;
-    error = [anError retain];
+    error = anError;
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection

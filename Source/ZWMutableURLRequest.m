@@ -20,13 +20,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [boundaryData release];
-    [requestBodyData release];
-    
-    [super dealloc];
-}
 
 - (CFHTTPMessageRef)copyCFHTTPMessageRef
 {
@@ -74,7 +67,7 @@
             [self setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary] forHTTPHeaderField:@"Content-Type"];
 
             // The actual boundary we'll be using has to start with "--" and end with \r\n
-            boundaryData = [[[[@"--" stringByAppendingString:boundary] stringByAppendingString:@"\r\n"] dataUsingEncoding:encoding] retain];
+            boundaryData = [[[@"--" stringByAppendingString:boundary] stringByAppendingString:@"\r\n"] dataUsingEncoding:encoding];
             
             [requestBodyData appendData:boundaryData];
         }

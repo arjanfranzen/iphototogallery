@@ -42,14 +42,12 @@
 
 + (ZWGalleryItem*)itemWithAlbum:(ZWGalleryAlbum*)newAlbum
 {
-    return [[[ZWGalleryItem alloc] initWithAlbum:newAlbum] autorelease];
+    return [[ZWGalleryItem alloc] initWithAlbum:newAlbum];
 }
 
 
 - (void)setData:(NSData*)newData 
 {
-    [newData retain];
-    [data release];
     data = newData;
 }
 
@@ -60,9 +58,7 @@
 
 - (void)setCaption:(NSString*)newCaption
 {
-    [newCaption retain];
-    [caption release];
-    caption = newCaption;
+   caption = newCaption;
 }
 
 - (NSString*)caption
@@ -72,9 +68,7 @@
 
 - (void)setDescription:(NSString*)newDescription 
 {
-    [newDescription retain];
-    [description release];
-    description = newDescription;
+     description = newDescription;
 }
 
 - (NSString*)description
@@ -84,9 +78,7 @@
 
 - (void)setFilename:(NSString*)newFilename
 {
-    [newFilename retain];
-    [filename release];
-    filename = newFilename;
+   filename = newFilename;
 }
 
 - (NSString*)filename
@@ -96,8 +88,6 @@
 
 - (void)setImageType:(NSString*)newImageType
 {
-    [newImageType retain];
-    [imageType release];
     imageType = newImageType;
 }
 
@@ -111,15 +101,6 @@
     return album;
 }
 
-- (void) dealloc
-{
-    [data release];
-    [caption release];
-    [description release];
-    [filename release];
-    [imageType release];
-    
-    [super dealloc];
-}
+
 
 @end

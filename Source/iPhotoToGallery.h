@@ -61,12 +61,12 @@
 
 // I had to guess at exactly what this struct looked like. I think I got it right, 
 // but we're not using the supplied progress sheet anymore so it doesn't matter.
-struct progressStruct {
-    int location;
-    int max;
-    NSString* status;
-    int unknown;
-};
+//struct progressStruct {
+//    int location;
+//    int max;
+//    NSString* status;
+//    int unknown;
+//};
 
 @interface iPhotoToGallery : NSObject <ExportPluginProtocol>
 {
@@ -130,7 +130,8 @@ struct progressStruct {
     IBOutlet id settingsView;
 
     // the export manager handed to us by iPhoto
-    id exportManager;
+    //id <NSObject, ExportImageProtocol> exportManager;
+    ExportMgr *exportManager;
     
     NSMutableDictionary *preferences;    
     NSMutableArray *galleries;

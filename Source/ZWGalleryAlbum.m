@@ -45,38 +45,38 @@
 }
 
 + (ZWGalleryAlbum*)albumWithTitle:(NSString*)newTitle name:(NSString*)newName gallery:(ZWGallery*)newGallery {
-    return [[[ZWGalleryAlbum alloc] initWithTitle:newTitle name:newName gallery:newGallery] autorelease];
+    return [[ZWGalleryAlbum alloc] initWithTitle:newTitle name:newName gallery:newGallery];
 }
 
 - (id)initWithTitle:(NSString*)newTitle name:(NSString*)newName summary:(NSString*)newSummary nestedIn:(ZWGalleryAlbum*)newParent gallery:(ZWGallery*)newGallery
 {
-    title = [newTitle retain];
-    name = [newName retain];
-    gallery = [newGallery retain];
-    summary = [newSummary retain];
-    parent = [newParent retain];
-    items = [[NSMutableArray array] retain];
+    title = newTitle;
+    name = newName;
+    gallery = newGallery;
+    summary = newSummary;
+    parent = newParent;
+    items = [NSMutableArray array];
     
     return self;
 }
 
 - (ZWGalleryAlbum*)albumWithTitle:(NSString*)newTitle name:(NSString*)newName summary:(NSString*)newSummary nestedIn:(ZWGalleryAlbum*)newParent gallery:(ZWGallery*)newGallery
 {
-    return [[[ZWGalleryAlbum alloc] initWithTitle:newTitle name:newName summary:newSummary nestedIn:parent gallery:newGallery] autorelease];
+    return [[ZWGalleryAlbum alloc] initWithTitle:newTitle name:newName summary:newSummary nestedIn:parent gallery:newGallery];
 }
 
-- (void)dealloc
-{
-    [title release];
-    [name release];
-    [summary release];
-    [gallery release];
-    [parent release];
-    [children release];
-    [items release];
-    
-    [super dealloc];
-}
+//- (void)dealloc
+//{
+//    [title release];
+//    [name release];
+//    [summary release];
+//    [gallery release];
+//    [parent release];
+//    [children release];
+//    [items release];
+//    
+//    [super dealloc];
+//}
 
 #pragma mark NSComparison
 
@@ -101,8 +101,6 @@
 
 - (void)setTitle:(NSString*)newTitle
 {
-    [newTitle retain];
-    [title release];
     title = newTitle;
 }
 
@@ -113,8 +111,6 @@
 
 - (void)setName:(NSString*)newName
 {
-    [newName retain];
-    [name release];
     name = newName;
 }
 
@@ -125,8 +121,6 @@
 
 - (void)setSummary:(NSString*)newSummary
 {
-    [newSummary retain];
-    [summary release];
     summary = newSummary;
 }
 
@@ -137,14 +131,10 @@
 
 - (void)setGallery:(ZWGallery*)newGallery
 {
-    [newGallery retain];
-    [gallery release];
-    gallery = newGallery;
+   gallery = newGallery;
 }
 
 - (void)setParent:(ZWGalleryAlbum*)newParent {
-    [newParent retain];
-    [parent release];
     parent = newParent;
 }
 
@@ -154,7 +144,7 @@
 
 - (void)addChild:(ZWGalleryAlbum*)child {
     if (children == nil) {
-        children = [[NSMutableArray array] retain];
+        children = [NSMutableArray array];
     }
     [children addObject:child];
 }
@@ -245,7 +235,7 @@
     [theRequest addString:@"add-item" forName:[
     */
     
-    CFHTTPMessageRef messageRef = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("POST"), (CFURLRef)[gallery fullURL], kCFHTTPVersion1_1);
+    CFHTTPMessageRef messageRef = CFHTTPMessageCreateRequest(kCFAllocatorDefault, CFSTR("POST"), (__bridge CFURLRef)[gallery fullURL], kCFHTTPVersion1_1);
     
     /*
 	 * gf: 2/27/2008: The initial login to a gallery (ZWGallery doLogin) uses NSURLRequest. Since this
@@ -261,13 +251,17 @@
 	NSURL *fullURL = [gallery fullURL];
 	NSString *user = [fullURL user];
 	NSString *password = [fullURL password];
-	NSLog(@"addItemSynchronously: user=%@, password=%@", user, password);
+	NSLog(@"addItemSynchronously: user=%@, password=%@, url=%@", user, password, fullURL);
+    NSLog(@"addItemSynchronously: item.caption=%@, item.description=%@, item.filename=%@, item.imageType=%@", [item caption], [item description], [item filename], [item imageType]);
+    
+    
+    
 	if (user != nil) {
-		NSLog(@"addItemSynchronously: adding authentication");
+		NSLog(@"addItemSynchronously: adding basic authentication");
 		Boolean result = CFHTTPMessageAddAuthentication(messageRef,		// request
 														nil,			// authenticationFailureResponse
-														(CFStringRef)user,
-														(CFStringRef)password,
+														(__bridge CFStringRef)user,
+														(__bridge CFStringRef)password,
 														kCFHTTPAuthenticationSchemeBasic,
 														FALSE);			// forProxy
 		if (result) {
@@ -282,14 +276,14 @@
     NSString *boundaryNL = [[@"--" stringByAppendingString:boundary] stringByAppendingString:@"\r\n"];
     NSData *boundaryData = [NSData dataWithData:[boundaryNL dataUsingEncoding:NSASCIIStringEncoding]];
     
-    CFHTTPMessageSetHeaderFieldValue(messageRef, CFSTR("Content-Type"), (CFStringRef)[NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]);
-    CFHTTPMessageSetHeaderFieldValue(messageRef, CFSTR("User-Agent"), CFSTR("iPhotoToGallery 0.63"));
+    CFHTTPMessageSetHeaderFieldValue(messageRef, CFSTR("Content-Type"), (__bridge CFStringRef)[NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]);
+    CFHTTPMessageSetHeaderFieldValue(messageRef, CFSTR("User-Agent"), CFSTR("iPhotoToGallery 2014.01"));
     CFHTTPMessageSetHeaderFieldValue(messageRef, CFSTR("Connection"), CFSTR("close"));
     
     // don't forget the cookies!
     NSHTTPCookieStorage *cookieStore = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSDictionary *cookiesInfo = [NSHTTPCookie requestHeaderFieldsWithCookies:[cookieStore cookiesForURL:[gallery fullURL]]];
-    CFHTTPMessageSetHeaderFieldValue(messageRef, CFSTR("Cookie"), (CFStringRef)[cookiesInfo objectForKey:@"Cookie"]);
+    CFHTTPMessageSetHeaderFieldValue(messageRef, CFSTR("Cookie"), (__bridge CFStringRef)[cookiesInfo objectForKey:@"Cookie"]);
     
     NSMutableData *requestData = [NSMutableData data];
 	
@@ -343,7 +337,7 @@
     [requestData appendData:[@"\r\n" dataUsingEncoding:NSASCIIStringEncoding]];
     [requestData appendData:boundaryData];
     
-    CFHTTPMessageSetBody(messageRef, (CFDataRef)requestData);
+    CFHTTPMessageSetBody(messageRef, (__bridge CFDataRef)requestData);
     
     CFReadStreamRef readStream = CFReadStreamCreateForHTTPRequest(kCFAllocatorDefault, messageRef);
     // make sure the proxy information is set on the stream
@@ -379,7 +373,7 @@
         
         // This is why we're using CFStream - we need to find out how much we've uploaded at any given point.
         CFNumberRef bytesWrittenRef = (CFNumberRef)CFReadStreamCopyProperty(readStream, kCFStreamPropertyHTTPRequestBytesWrittenCount);
-        unsigned long bytesWritten = [(NSNumber *)bytesWrittenRef unsignedLongValue];
+        unsigned long bytesWritten = [(__bridge NSNumber *)bytesWrittenRef unsignedLongValue];
         CFRelease(bytesWrittenRef);
         
         if (bytesSentSoFar != bytesWritten) {

@@ -16,13 +16,13 @@ typedef struct {
 typedef struct {
     unsigned long long _field1;
     unsigned long long _field2;
-    id _field3;
+    //id _field3;
     char _field4;
     char _field5;
     char _field6;
 } ProgressReturnType;
 
-@protocol ExportImageProtocol
+@protocol ExportImageProtocol <NSObject>
 - (struct CGSize)lastExportedImageSize;
 - (BOOL)exportImageAtIndex:(unsigned long long)arg1 dest:(NSString *)arg2 options:(CDStruct_9227e8cc *)arg3;
 - (unsigned long long)sessionID;
@@ -69,11 +69,11 @@ typedef struct {
 - (unsigned long long)imageCount;
 @end
 
-@protocol ExportPluginBoxProtocol
+@protocol ExportPluginBoxProtocol <NSObject>
 - (BOOL)performKeyEquivalent:(NSEvent *)arg1;
 @end
 
-@protocol ExportPluginProtocol
+@protocol ExportPluginProtocol <NSObject>
 - (NSString *)name;
 - (void)cancelExport;
 - (void)unlockProgress;
@@ -158,7 +158,7 @@ typedef struct {
     struct CGSize mLastExportSize;
 }
 
-+ (struct CGSize)exportImage:(struct IPPhotoInfo *)arg1 dest:(id)arg2 format:(unsigned int)arg3 quality:(double)arg4 rotation:(long long)arg5 width:(unsigned long long)arg6 height:(unsigned long long)arg7 metadata:(int)arg8;
+//+ (struct CGSize)exportImage:(struct IPPhotoInfo *)arg1 dest:(id)arg2 format:(unsigned int)arg3 quality:(double)arg4 rotation:(long long)arg5 width:(unsigned long long)arg6 height:(unsigned long long)arg7 metadata:(int)arg8;
 + (id)gpsPropertyChangesIncludeGPS:(BOOL)arg1 withLatitude:(id)arg2 longitude:(id)arg3 altitude:(id)arg4;
 + (id)iptcPropertyChangesIncludeMetadata:(BOOL)arg1 withTitle:(id)arg2 comment:(id)arg3 keywords:(id)arg4;
 + (id)exportMgrNoAlloc;

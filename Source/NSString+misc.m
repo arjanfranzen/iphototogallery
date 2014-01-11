@@ -100,7 +100,7 @@ static inline BOOL isToBeEscaped(unsigned char _c) {
 }
 
 static void
-NGEscapeUrlBuffer(const unsigned char *_source, unsigned char *_dest)
+NGEscapeUrlBuffer(const char *_source, char *_dest)
 {
     register const unsigned char *src = (void*)_source;
     while (*src) {
@@ -113,7 +113,7 @@ NGEscapeUrlBuffer(const unsigned char *_source, unsigned char *_dest)
         }
         else { // any other char is escaped ..
             *_dest = '%'; _dest++;
-            sprintf(_dest, "%02X", (unsigned)*src);
+            sprintf((char*)_dest, "%02X", (unsigned)*src);
             _dest += 2;
         }
         src++;
@@ -155,7 +155,7 @@ static inline BOOL _isHexDigit(register unichar _c) {
 }
 
 static void
-NGUnescapeUrlBuffer(const unsigned char *_source, unsigned char *_dest)
+NGUnescapeUrlBuffer(const char *_source, unsigned char *_dest)
 {
     BOOL done = NO;
 
@@ -222,36 +222,34 @@ NGUnescapeUrlBuffer(const unsigned char *_source, unsigned char *_dest)
 - (NSString *)stringByUnescapingURL {
     unsigned len;
     char     *cstr;
-    char     *buffer = NULL;
+    unsigned char     *buffer = NULL;
     NSString *s;
 
     if (![self containsURLEscapeCharacters])
-        return [[self copy] autorelease];
+        return [self copy];
 
-    if ((len = [self cStringLength]) == 0) return @"";
+    if ((len = [self length]) == 0) return @"";
 
     cstr = malloc(len + 10);
-    [self getCString:cstr];
+    [self getCString:cstr maxLength:len+10 encoding:NSASCIIStringEncoding];
     cstr[len] = '\0';
 
     buffer = malloc(len + 2);
     NGUnescapeUrlBuffer(cstr, buffer);
     s = [[NSString alloc]
-                 initWithCStringNoCopy:buffer
-                                length:strlen(buffer)
-                          freeWhenDone:YES];
+         initWithBytesNoCopy:buffer length:strlen((char*)buffer) encoding:NSASCIIStringEncoding freeWhenDone:YES];
     if (cstr) free(cstr);
-    return [s autorelease];
+    return s;
 }
 
 NSString *URLEscapeString(NSString *str) 
 {
-    NSString *escapedString = (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
+    NSString *escapedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
                                                                                   (CFStringRef)str,
                                                                                   NULL,
                                                                                   NULL,
-                                                                                  kCFStringEncodingISOLatin1);
-    return [escapedString autorelease];    
+                                                                                  kCFStringEncodingISOLatin1));
+    return escapedString;
 }
 
 - (NSString *)stringByEscapingURL {
@@ -262,24 +260,22 @@ NSString *URLEscapeString(NSString *str)
     NSString *s;
     char     *buffer = NULL;
 
-    if ((len = [self cStringLength]) == 0) return @"";
+    if ((len = [self length]) == 0) return @"";
 
     if (![self containsURLInvalidCharacters]) // needs to be escaped ?
-        return [[self copy] autorelease];
+        return [self copy];
 
     cstr = malloc(len + 1);
-    [self getCString:cstr];
+    [self getCString:cstr maxLength:len+10 encoding:NSASCIIStringEncoding];
     cstr[len] = '\0';
 
-    buffer = malloc([self cStringLength] * 3 + 2);
+    buffer = malloc([self length] * 3 + 2);
     NGEscapeUrlBuffer(cstr, buffer);
 
     s = [[NSString alloc]
-                 initWithCStringNoCopy:buffer
-                                length:strlen(buffer)
-                          freeWhenDone:YES];
+         initWithBytesNoCopy:buffer length:strlen((char*)buffer) encoding:NSASCIIStringEncoding freeWhenDone:YES];
     free(cstr);
-    return [s autorelease];
+    return s;
 }
 
 @end
