@@ -138,7 +138,7 @@
     NSString *lastGallerySelected;
     ZWGallery *currentGallery;
     BOOL selectLastCreatedAlbumWhenDoneFetching;
-    int indexOfLastGallery;
+    NSInteger indexOfLastGallery;
     NSTimer *showCancelTimer;
     
     unsigned long currentItemProgress;

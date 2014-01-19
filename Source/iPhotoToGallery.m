@@ -362,7 +362,7 @@ static int loggingIn;
     // This is only relevant for G2 - for G1 we will default to an album at root level
     if ([currentGallery isGalleryV2]) {
         ZWGalleryAlbum *selectedAlbum = [[mainAddToAlbumPopup selectedItem] representedObject];
-        int idx = [albumSettingsNestedInPopup indexOfItemWithRepresentedObject:selectedAlbum];
+        NSInteger idx = [albumSettingsNestedInPopup indexOfItemWithRepresentedObject:selectedAlbum];
         if (idx >= 0 && [[albumSettingsNestedInPopup itemAtIndex:idx] isEnabled]) 
             [albumSettingsNestedInPopup selectItemAtIndex:idx];
     }
