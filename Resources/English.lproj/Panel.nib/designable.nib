@@ -64,7 +64,7 @@
 				</object>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="494397731">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSBox" id="689507813">
@@ -88,6 +88,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{17, 60}, {68, 17}}</string>
 															<reference key="NSSuperview" ref="316956086"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="813651459"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="315968372">
@@ -127,6 +128,7 @@
 															<int key="NSvFlags">1280</int>
 															<string key="NSFrame">{{370, 22}, {16, 16}}</string>
 															<reference key="NSSuperview" ref="316956086"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="471573502"/>
 															<int key="NSpiFlags">28938</int>
 															<double key="NSMaxValue">100</double>
@@ -136,6 +138,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{87, 24}, {200, 14}}</string>
 															<reference key="NSSuperview" ref="316956086"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="649518032"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="138682643">
@@ -159,6 +162,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{87, 54}, {302, 26}}</string>
 															<reference key="NSSuperview" ref="316956086"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="239689953"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSPopUpButtonCell" key="NSCell" id="159253544">
@@ -218,6 +222,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{17, 24}, {68, 14}}</string>
 															<reference key="NSSuperview" ref="316956086"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="834290844"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="841070563">
@@ -237,6 +242,7 @@
 															<int key="NSvFlags">-2147483392</int>
 															<string key="NSFrame">{{306, 21}, {57, 16}}</string>
 															<reference key="NSSuperview" ref="316956086"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="14543681"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="30271904">
@@ -268,11 +274,13 @@
 													</array>
 													<string key="NSFrame">{{2, 2}, {406, 98}}</string>
 													<reference key="NSSuperview" ref="107924624"/>
+													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="257579968"/>
 												</object>
 											</array>
 											<string key="NSFrame">{{14, 308}, {410, 118}}</string>
 											<reference key="NSSuperview" ref="203146281"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="316956086"/>
 											<string key="NSOffsets">{0, 0}</string>
 											<object class="NSTextFieldCell" key="NSTitleCell">
@@ -313,6 +321,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{123, 94}, {266, 26}}</string>
 															<reference key="NSSuperview" ref="89698897"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="384667304"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSPopUpButtonCell" key="NSCell" id="681210697">
@@ -364,6 +373,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{18, 16}, {344, 18}}</string>
 															<reference key="NSSuperview" ref="89698897"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="764593712"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="616549620">
@@ -389,6 +399,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{11, 100}, {110, 17}}</string>
 															<reference key="NSSuperview" ref="89698897"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="208619682"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="772424835">
@@ -412,6 +423,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{234, 50}, {158, 32}}</string>
 															<reference key="NSSuperview" ref="89698897"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="377156934"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="671127723">
@@ -435,11 +447,13 @@
 													</array>
 													<string key="NSFrame">{{2, 2}, {406, 138}}</string>
 													<reference key="NSSuperview" ref="471573502"/>
+													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="134489239"/>
 												</object>
 											</array>
 											<string key="NSFrame">{{14, 146}, {410, 158}}</string>
 											<reference key="NSSuperview" ref="203146281"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="89698897"/>
 											<string key="NSOffsets">{0, 0}</string>
 											<object class="NSTextFieldCell" key="NSTitleCell">
@@ -464,6 +478,8 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrame">{{14, 13}, {324, 17}}</string>
 											<reference key="NSSuperview" ref="203146281"/>
+											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView" ref="613432772"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="862604507">
 												<int key="NSCellFlags">67108864</int>
@@ -490,6 +506,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{18, 50}, {219, 18}}</string>
 															<reference key="NSSuperview" ref="404137120"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="838209667"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="28815916">
@@ -517,6 +534,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{240, 48}, {50, 22}}</string>
 															<reference key="NSSuperview" ref="404137120"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="528676215"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="594085147">
@@ -605,6 +623,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{295, 50}, {13, 17}}</string>
 															<reference key="NSSuperview" ref="404137120"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="781855102"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="792359844">
@@ -624,6 +643,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{313, 48}, {50, 22}}</string>
 															<reference key="NSSuperview" ref="404137120"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="804500284"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="828940367">
@@ -705,6 +725,7 @@
 															<int key="NSvFlags">256</int>
 															<string key="NSFrame">{{18, 19}, {196, 18}}</string>
 															<reference key="NSSuperview" ref="404137120"/>
+															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="788373130"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="738412753">
@@ -726,11 +747,13 @@
 													</array>
 													<string key="NSFrame">{{2, 2}, {406, 84}}</string>
 													<reference key="NSSuperview" ref="764593712"/>
+													<reference key="NSWindow"/>
 													<reference key="NSNextKeyView" ref="630098252"/>
 												</object>
 											</array>
 											<string key="NSFrame">{{14, 36}, {410, 104}}</string>
 											<reference key="NSSuperview" ref="203146281"/>
+											<reference key="NSWindow"/>
 											<reference key="NSNextKeyView" ref="404137120"/>
 											<string key="NSOffsets">{0, 0}</string>
 											<object class="NSTextFieldCell" key="NSTitleCell">
@@ -750,14 +773,37 @@
 											<int key="NSTitlePosition">2</int>
 											<bool key="NSTransparent">NO</bool>
 										</object>
+										<object class="NSTextField" id="613432772">
+											<reference key="NSNextResponder" ref="203146281"/>
+											<int key="NSvFlags">292</int>
+											<string key="NSFrame">{{104, 2}, {169, 14}}</string>
+											<reference key="NSSuperview" ref="203146281"/>
+											<reference key="NSWindow"/>
+											<reference key="NSNextKeyView"/>
+											<string key="NSHuggingPriority">{251, 750}</string>
+											<bool key="NSEnabled">YES</bool>
+											<object class="NSTextFieldCell" key="NSCell" id="786149927">
+												<int key="NSCellFlags">68157504</int>
+												<int key="NSCellFlags2">272761856</int>
+												<string key="NSContents">Based on Zach Wiley's v0.67</string>
+												<reference key="NSSupport" ref="26"/>
+												<reference key="NSControlView" ref="613432772"/>
+												<reference key="NSBackgroundColor" ref="644068836"/>
+												<reference key="NSTextColor" ref="1072530347"/>
+											</object>
+											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+											<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
+										</object>
 									</array>
 									<string key="NSFrame">{{2, 2}, {440, 430}}</string>
 									<reference key="NSSuperview" ref="689507813"/>
+									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="107924624"/>
 								</object>
 							</array>
 							<string key="NSFrame">{{0, 40}, {444, 450}}</string>
 							<reference key="NSSuperview" ref="494397731"/>
+							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="203146281"/>
 							<string key="NSOffsets">{0, 0}</string>
 							<object class="NSTextFieldCell" key="NSTitleCell">
@@ -779,6 +825,8 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{475, 497}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="689507813"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
@@ -1339,7 +1387,6 @@
 							<reference key="NSHScroller" ref="74050660"/>
 							<reference key="NSContentView" ref="109305418"/>
 							<reference key="NSHeaderClipView" ref="655890564"/>
-							<reference key="NSCornerView" ref="269397663"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 							<double key="NSMinMagnification">0.25</double>
 							<double key="NSMaxMagnification">4</double>
@@ -2694,6 +2741,7 @@
 							<reference ref="471573502"/>
 							<reference ref="788373130"/>
 							<reference ref="764593712"/>
+							<reference ref="613432772"/>
 						</array>
 						<reference key="parent" ref="494397731"/>
 					</object>
@@ -3695,6 +3743,19 @@
 						<reference key="object" ref="902543434"/>
 						<reference key="parent" ref="492926643"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">623</int>
+						<reference key="object" ref="613432772"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="786149927"/>
+						</array>
+						<reference key="parent" ref="689507813"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">624</int>
+						<reference key="object" ref="786149927"/>
+						<reference key="parent" ref="613432772"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3842,6 +3903,8 @@
 				<string key="620.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="621.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="622.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="623.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="624.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="65.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3853,9 +3916,386 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">622</int>
+			<int key="maxID">624</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">NSTextView</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="orderFrontSharingServicePicker:">id</string>
+						<string key="toggleQuickLookPreviewPanel:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="orderFrontSharingServicePicker:">
+							<string key="name">orderFrontSharingServicePicker:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleQuickLookPreviewPanel:">
+							<string key="name">toggleQuickLookPreviewPanel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSTextView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">ZWTransitionImageView</string>
+					<string key="superclassName">NSView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ZWTransitionImageView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">iPhotoToGallery</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="clickAlbumSettingsCancel:">id</string>
+						<string key="clickAlbumSettingsCreateAlbum:">id</string>
+						<string key="clickCancelLogin:">id</string>
+						<string key="clickCreateNewAlbum:">id</string>
+						<string key="clickDonate:">id</string>
+						<string key="clickGalleryListDone:">id</string>
+						<string key="clickGalleryListRemove:">id</string>
+						<string key="clickGalleryListSelectGallery:">id</string>
+						<string key="clickGalleryPopup:">id</string>
+						<string key="clickGallerySettingsCancel:">id</string>
+						<string key="clickGallerySettingsOK:">id</string>
+						<string key="clickGallerySettingsShowAdvancedOptions:">id</string>
+						<string key="clickGallerySettingsUseHTTPAuth:">id</string>
+						<string key="clickLogin:">id</string>
+						<string key="clickPasswordCancel:">id</string>
+						<string key="clickPasswordOK:">id</string>
+						<string key="clickProgressCancel:">id</string>
+						<string key="clickScaleImages:">id</string>
+						<string key="clickiPhotoToGalleryName:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="clickAlbumSettingsCancel:">
+							<string key="name">clickAlbumSettingsCancel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickAlbumSettingsCreateAlbum:">
+							<string key="name">clickAlbumSettingsCreateAlbum:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickCancelLogin:">
+							<string key="name">clickCancelLogin:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickCreateNewAlbum:">
+							<string key="name">clickCreateNewAlbum:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickDonate:">
+							<string key="name">clickDonate:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickGalleryListDone:">
+							<string key="name">clickGalleryListDone:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickGalleryListRemove:">
+							<string key="name">clickGalleryListRemove:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickGalleryListSelectGallery:">
+							<string key="name">clickGalleryListSelectGallery:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickGalleryPopup:">
+							<string key="name">clickGalleryPopup:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickGallerySettingsCancel:">
+							<string key="name">clickGallerySettingsCancel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickGallerySettingsOK:">
+							<string key="name">clickGallerySettingsOK:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickGallerySettingsShowAdvancedOptions:">
+							<string key="name">clickGallerySettingsShowAdvancedOptions:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickGallerySettingsUseHTTPAuth:">
+							<string key="name">clickGallerySettingsUseHTTPAuth:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickLogin:">
+							<string key="name">clickLogin:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickPasswordCancel:">
+							<string key="name">clickPasswordCancel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickPasswordOK:">
+							<string key="name">clickPasswordOK:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickProgressCancel:">
+							<string key="name">clickProgressCancel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickScaleImages:">
+							<string key="name">clickScaleImages:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="clickiPhotoToGalleryName:">
+							<string key="name">clickiPhotoToGalleryName:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="albumSettingsDescriptionField">id</string>
+						<string key="albumSettingsNameField">id</string>
+						<string key="albumSettingsNestedInPopup">id</string>
+						<string key="albumSettingsPanel">id</string>
+						<string key="albumSettingsTitleField">id</string>
+						<string key="firstView">id</string>
+						<string key="galleryListPanel">id</string>
+						<string key="galleryListRemoveGalleryButton">id</string>
+						<string key="galleryListTable">id</string>
+						<string key="gallerySettingsAdvancedBox">id</string>
+						<string key="gallerySettingsHTTPPasswordField">id</string>
+						<string key="gallerySettingsHTTPUsernameField">id</string>
+						<string key="gallerySettingsPanel">id</string>
+						<string key="gallerySettingsPasswordField">id</string>
+						<string key="gallerySettingsShowAdvancedOptionsString">id</string>
+						<string key="gallerySettingsShowAdvancedOptionsSwitch">id</string>
+						<string key="gallerySettingsURLField">id</string>
+						<string key="gallerySettingsUseHTTPAuthSwitch">id</string>
+						<string key="gallerySettingsUseHTTPSSwitch">id</string>
+						<string key="gallerySettingsUsernameField">id</string>
+						<string key="lastView">id</string>
+						<string key="mainAddToAlbumPopup">id</string>
+						<string key="mainConnectCancelButton">id</string>
+						<string key="mainCreateNewAlbumButton">id</string>
+						<string key="mainDonateButton">id</string>
+						<string key="mainExportCommentsSwitch">id</string>
+						<string key="mainGalleryPopup">id</string>
+						<string key="mainOpenBrowserSwitch">id</string>
+						<string key="mainProgressIndicator">id</string>
+						<string key="mainScaleImagesHeightField">id</string>
+						<string key="mainScaleImagesSwitch">id</string>
+						<string key="mainScaleImagesWidthField">id</string>
+						<string key="mainStatusString">id</string>
+						<string key="passwordDescriptionField">id</string>
+						<string key="passwordInputField">id</string>
+						<string key="passwordPanel">id</string>
+						<string key="passwordTitleField">id</string>
+						<string key="progressImageView">id</string>
+						<string key="progressPanel">id</string>
+						<string key="progressProgressIndicator">id</string>
+						<string key="progressUploadingDetailField">id</string>
+						<string key="progressUploadingTextField">id</string>
+						<string key="settingsView">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="albumSettingsDescriptionField">
+							<string key="name">albumSettingsDescriptionField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="albumSettingsNameField">
+							<string key="name">albumSettingsNameField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="albumSettingsNestedInPopup">
+							<string key="name">albumSettingsNestedInPopup</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="albumSettingsPanel">
+							<string key="name">albumSettingsPanel</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="albumSettingsTitleField">
+							<string key="name">albumSettingsTitleField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="firstView">
+							<string key="name">firstView</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="galleryListPanel">
+							<string key="name">galleryListPanel</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="galleryListRemoveGalleryButton">
+							<string key="name">galleryListRemoveGalleryButton</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="galleryListTable">
+							<string key="name">galleryListTable</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsAdvancedBox">
+							<string key="name">gallerySettingsAdvancedBox</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsHTTPPasswordField">
+							<string key="name">gallerySettingsHTTPPasswordField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsHTTPUsernameField">
+							<string key="name">gallerySettingsHTTPUsernameField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsPanel">
+							<string key="name">gallerySettingsPanel</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsPasswordField">
+							<string key="name">gallerySettingsPasswordField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsShowAdvancedOptionsString">
+							<string key="name">gallerySettingsShowAdvancedOptionsString</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsShowAdvancedOptionsSwitch">
+							<string key="name">gallerySettingsShowAdvancedOptionsSwitch</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsURLField">
+							<string key="name">gallerySettingsURLField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsUseHTTPAuthSwitch">
+							<string key="name">gallerySettingsUseHTTPAuthSwitch</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsUseHTTPSSwitch">
+							<string key="name">gallerySettingsUseHTTPSSwitch</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gallerySettingsUsernameField">
+							<string key="name">gallerySettingsUsernameField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="lastView">
+							<string key="name">lastView</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainAddToAlbumPopup">
+							<string key="name">mainAddToAlbumPopup</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainConnectCancelButton">
+							<string key="name">mainConnectCancelButton</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainCreateNewAlbumButton">
+							<string key="name">mainCreateNewAlbumButton</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainDonateButton">
+							<string key="name">mainDonateButton</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainExportCommentsSwitch">
+							<string key="name">mainExportCommentsSwitch</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainGalleryPopup">
+							<string key="name">mainGalleryPopup</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainOpenBrowserSwitch">
+							<string key="name">mainOpenBrowserSwitch</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainProgressIndicator">
+							<string key="name">mainProgressIndicator</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainScaleImagesHeightField">
+							<string key="name">mainScaleImagesHeightField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainScaleImagesSwitch">
+							<string key="name">mainScaleImagesSwitch</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainScaleImagesWidthField">
+							<string key="name">mainScaleImagesWidthField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mainStatusString">
+							<string key="name">mainStatusString</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="passwordDescriptionField">
+							<string key="name">passwordDescriptionField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="passwordInputField">
+							<string key="name">passwordInputField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="passwordPanel">
+							<string key="name">passwordPanel</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="passwordTitleField">
+							<string key="name">passwordTitleField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="progressImageView">
+							<string key="name">progressImageView</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="progressPanel">
+							<string key="name">progressPanel</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="progressProgressIndicator">
+							<string key="name">progressProgressIndicator</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="progressUploadingDetailField">
+							<string key="name">progressUploadingDetailField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="progressUploadingTextField">
+							<string key="name">progressUploadingTextField</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="settingsView">
+							<string key="name">settingsView</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/iPhotoToGallery.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">iPhotoToGalleryExportPluginBox</string>
+					<string key="superclassName">NSBox</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">mPlugin</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">mPlugin</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">mPlugin</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/iPhotoToGalleryExportPluginBox.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">YES</bool>
